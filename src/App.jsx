@@ -1,9 +1,11 @@
 import React from "react";
+import Header from "./Components/Header";
 
 function App() {
   return (
+
     <div className="">
-        <header>Cycler App</header>
+        <Header></Header>
     </div>
   );
 }
