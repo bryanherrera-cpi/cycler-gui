@@ -7,9 +7,21 @@
   body {
     background-color: #002C3D;
     line-height: 1.6;
+    overflow-y: hidden;
   }
 
   header {
-	background-color: #18272E;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px
-}
+	  background-color: #18272E;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px -1px, rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px;
+    margin-bottom: 5rem;
+  }
+
+  .status-banner{
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+  }
+
+  .idle-bg{
+    background-color: #FF822A;
+  }
