@@ -9,10 +9,20 @@ function App() {
   const [reset, setReset] = useState(false);
   const [mode, setMode] = useState("IDLE");
   const [socketConnection, setSocketConnection] = useState(socket.connected);
+  const [arduinoMessage, setArduinoMessage] = useState("");
 
   function onConnect() {
     setSocketConnection(true);
   }
+
+  const onArduinoMessage = (msg) => {
+    let data = JSON.parse(msg);
+    console.log(data);
+    setCycleCount(data.CycleCount);
+    if (data.CycleCount === cycleTarget) {
+      updateMode("DONE");
+    }
+  };
 
   const updateTarget = (target) => {
     setCycleTarget(target);
@@ -20,31 +30,31 @@ function App() {
 
   const updateMode = (mode) => {
     setMode(mode);
-    if (mode == "START") {
-      socket.emit("mode", { data: "<2>" });
-    }
-    if (mode == "STOP") {
-      socket.emit("mode", { data: "<1>" });
-    }
   };
 
   const updateReset = () => {
-    setReset(!reset);
-    if (mode == "STOP") {
+    if (mode === "STOP" || mode === "DONE") {
       setMode("IDLE");
     }
+    setCycleCount(0);
   };
 
   useEffect(() => {
-    console.log("Mode: " + mode);
-    console.log("Reset: " + reset);
-    console.log("Socket Connected: " + socketConnection);
-    // socket.emit("Hello World!");
     socket.on("connect", () => onConnect());
-  });
+    socket.on("arduinoMessage", onArduinoMessage);
+
+    let clientMessage = `<${cycleCount}|${cycleTarget}|${reset}|${mode}|${socketConnection}>`;
+    socket.emit("clientMessage", { data: clientMessage });
+    console.log("Sent Client Message to Arduino: " + clientMessage);
+
+    return () => {
+      socket.off("connect", onConnect);
+      socket.off("arduinoMessage", onArduinoMessage);
+    };
+  }, [mode]);
 
   return (
-    <div className=''>
+    <div>
       <Header></Header>
       <div className='container vh-100'>
         <div className='row justify-content-center vh-100'>
@@ -54,6 +64,9 @@ function App() {
               updateMode={updateMode}
               updateReset={updateReset}
               mode={mode}
+              socketConnection={socketConnection}
+              cycleCount={cycleCount}
+              cycleTarget={cycleTarget}
             ></Form>
           </div>
         </div>

@@ -1,25 +1,38 @@
 import React from "react";
+import Loading from "./Loading";
+import FormElements from "./FormElements";
 
-function Form({ updateTarget, updateMode, updateReset, mode }) {
-  const onTargetChange = (e) => {
-    //console.log(e.target.value);
-    updateTarget(e.target.value);
+function Form({
+  updateTarget,
+  updateMode,
+  updateReset,
+  mode,
+  socketConnection,
+  cycleCount,
+  cycleTarget,
+}) {
+  const renderForm = () => {
+    return (
+      <FormElements
+        updateTarget={updateTarget}
+        updateMode={updateMode}
+        updateReset={updateReset}
+        mode={mode}
+        cycleCount={cycleCount}
+        cycleTarget={cycleTarget}
+      ></FormElements>
+    );
   };
 
-  const onModeSelect = (e) => {
-    updateMode(e);
-    // socket.emit("mode", { status: "<2>" });
-    //console.log(e);
+  const renderLoading = () => {
+    return <Loading></Loading>;
   };
-
-  const onReset = () => {
-    updateReset();
-  };
-
   return (
     <div className='card'>
       <div className='card-body'>
-        <div className='container'>
+        {socketConnection ? renderForm() : renderLoading()}
+
+        {/* <div className='container'>
           {mode == "IDLE" ? (
             <div className='row justify-content-center status-banner bg-info rounded-3'>
               <div className='col-8 justify-content-center text-center'>
@@ -100,7 +113,7 @@ function Form({ updateTarget, updateMode, updateReset, mode }) {
               RESET
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
