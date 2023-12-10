@@ -58,14 +58,26 @@ function FormElements({
           </div>
         </div>
       ) : null}
-
+      <div
+        className='progress my-3'
+        role='progressbar'
+        aria-label='Animated striped example'
+        aria-valuenow={cycleCount}
+        aria-valuemin='0'
+        aria-valuemax={cycleTarget}
+      >
+        <div
+          className='progress-bar progress-bar-striped progress-bar-animated'
+          style={{ width: `${(cycleCount / cycleTarget) * 100}%` }}
+        ></div>
+      </div>
       <div className='row justify-content-center mt-4'>
         <div className='col justify-content-center'>
-          <div className='d-flex justify-content-between'>
-            <div className='col-auto'>
+          <div className='d-flex flex-wrap justify-content-center justify-content-lg-between'>
+            <div className='col-auto my-auto pb-2 pb-lg-0'>
               <h3 className='m-0'>Cycle Count:</h3>
             </div>
-            <div className='col-6'>
+            <div className='col-lg-6 col-10'>
               <div type='text' className='card d-flex align-items-center'>
                 <span className='my-1 h3'>{cycleCount}</span>
               </div>
@@ -74,12 +86,12 @@ function FormElements({
         </div>
       </div>
       <div className='row justify-content-center my-4'>
-        <div className='col'>
-          <div className='d-flex justify-content-between'>
-            <div className='col-auto'>
+        <div className='col justify-content-center'>
+          <div className='d-flex flex-wrap justify-content-center justify-content-lg-between'>
+            <div className='col-auto my-auto pb-2 pb-lg-0'>
               <h3 className='m-0'>Target:</h3>
             </div>
-            <div className='col-6 input-group-lg'>
+            <div className='col-lg-6 col-10 input-group-lg'>
               <input
                 type='text'
                 className='form-control text-center'
