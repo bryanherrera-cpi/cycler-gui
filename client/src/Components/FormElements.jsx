@@ -25,7 +25,7 @@ function FormElements({
       {mode === "IDLE" ? (
         <div className='row justify-content-center status-banner text-bg-primary rounded-3'>
           <div className='col-8 justify-content-center text-center'>
-            <h2 className='m-0'>IDLE</h2>
+            <h2 className='m-0'>READY</h2>
           </div>
         </div>
       ) : null}
@@ -93,7 +93,8 @@ function FormElements({
             </div>
             <div className='col-lg-6 col-10 input-group-lg'>
               <input
-                type='text'
+                type='number'
+                min='1'
                 className='form-control text-center'
                 onChange={(e) => onTargetChange(e)}
                 disabled={mode !== "IDLE"}
