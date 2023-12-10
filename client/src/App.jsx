@@ -6,10 +6,8 @@ import { socket } from "./socket";
 function App() {
   const [cycleCount, setCycleCount] = useState(0);
   const [cycleTarget, setCycleTarget] = useState(0);
-  const [reset, setReset] = useState(false);
   const [mode, setMode] = useState("IDLE");
   const [socketConnection, setSocketConnection] = useState(socket.connected);
-  const [arduinoMessage, setArduinoMessage] = useState("");
 
   function onConnect() {
     setSocketConnection(true);
@@ -32,7 +30,7 @@ function App() {
     setMode(mode);
   };
 
-  const updateReset = () => {
+  const onReset = () => {
     if (mode === "STOP" || mode === "DONE") {
       setMode("IDLE");
     }
@@ -43,7 +41,7 @@ function App() {
     socket.on("connect", () => onConnect());
     socket.on("arduinoMessage", onArduinoMessage);
 
-    let clientMessage = `<${cycleCount}|${cycleTarget}|${reset}|${mode}|${socketConnection}>`;
+    let clientMessage = `<${cycleCount}|${cycleTarget}|${mode}>`;
     socket.emit("clientMessage", { data: clientMessage });
     console.log("Sent Client Message to Arduino: " + clientMessage);
 
@@ -62,7 +60,7 @@ function App() {
             <Form
               updateTarget={updateTarget}
               updateMode={updateMode}
-              updateReset={updateReset}
+              onReset={onReset}
               mode={mode}
               socketConnection={socketConnection}
               cycleCount={cycleCount}

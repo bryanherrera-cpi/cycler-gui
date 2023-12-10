@@ -37,71 +37,21 @@ const io = new Server(server, {
   },
 });
 
-let arduinoResponse = "";
-let previousArduinoResponse = "";
 const parser = new ReadlineParser();
-// const myparser = new ReadlineParser();
 
 port.pipe(parser);
-// myport.pipe(myparser);
-
-// myparser.on("data", (data) => {
-//   // arduinoResponse = data;
-//   // if (arduinoResponse !== previousArduinoResponse) {
-//   //   console.log("Server Received Arduino Message" + arduinoResponse);
-//   //   previousArduinoResponse = arduinoResponse;
-//   //   io.emit("arduinoMessage", arduinoResponse);
-//   // }
-//   console.log("Test" + data);
-// });
-
-// parser.on("data", (data) => {
-//   arduinoResponse = data;
-//   // if (arduinoResponse !== previousArduinoResponse) {
-//   //   console.log("Server Received Arduino Message" + arduinoResponse);
-//   //   previousArduinoResponse = arduinoResponse;
-//   //   io.emit("arduinoMessage", arduinoResponse);
-//   // }
-//   console.log("Server Received Arduino Message" + arduinoResponse);
-// });
 
 io.on("connection", (socket) => {
   console.log("a user connected");
-  // socket.on("mode", (msg) => {
-  //   console.log("Sent to Arduino: " + msg.data);
-  //   port.write(msg.data);
-  // });
   socket.on("clientMessage", (msg) => {
     console.log("Sent to Arduino: " + msg.data);
     port.write(msg.data);
   });
-
-  // parser.on("data", (data) => {
-  //   // arduinoResponse = data;
-  //   // socket.emit("arduinoMessage", arduinoResponse);
-  //   if (data !== previousArduinoResponse) {
-  //     // console.log("Server Received Arduino Message" + arduinoResponse);
-  //     previousArduinoResponse = data;
-  //     io.emit("arduinoMessage", data);
-  //     console.log("Server Received Arduino Message: " + data);
-  //   }
-  // });
-
-  // socket.emit("arduinoMessage", arduinoResponse);
-  // console.log("Server Received Arduino Message" + arduinoResponse);
-
-  // if (arduinoResponse !== previousArduinoResponse) {
-  //   //socket.emit("arduinoMessage", arduinoResponse);
-  //   console.log("Server Received Arduino Message" + arduinoResponse);
-  //   previousArduinoResponse = arduinoResponse;
-  // }
 });
 
+let previousArduinoResponse = "";
 parser.on("data", (data) => {
-  // arduinoResponse = data;
-  // socket.emit("arduinoMessage", arduinoResponse);
   if (data !== previousArduinoResponse) {
-    // console.log("Server Received Arduino Message" + arduinoResponse);
     previousArduinoResponse = data;
     io.emit("arduinoMessage", data);
     console.log("Server Received Arduino Message: " + data);

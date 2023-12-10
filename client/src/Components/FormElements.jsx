@@ -3,15 +3,12 @@ import React, { useState, useEffect } from "react";
 function FormElements({
   updateTarget,
   updateMode,
-  updateReset,
+  onReset,
   mode,
   cycleCount,
   cycleTarget,
 }) {
-  const [target, setTarget] = useState(null);
-
   const onTargetChange = (e) => {
-    // setTarget(e.target.value);
     updateTarget(e.target.value);
   };
 
@@ -19,13 +16,9 @@ function FormElements({
     updateMode(e);
   };
 
-  const onReset = () => {
-    updateReset();
+  const onResetClick = () => {
+    onReset();
   };
-
-  //   useEffect(() => {
-  //     updateTarget(target);
-  //   }, [target]);
 
   return (
     <div className='container'>
@@ -58,11 +51,14 @@ function FormElements({
         </div>
       ) : null}
 
-      <div className='row justify-content-center status-banner text-bg-danger rounded-3 d-none'>
-        <div className='col-8 justify-content-center text-center'>
-          <h2 className='m-0'>Fail</h2>
+      {mode === "FAIL" ? (
+        <div className='row justify-content-center status-banner text-bg-danger rounded-3 d-none'>
+          <div className='col-8 justify-content-center text-center'>
+            <h2 className='m-0'>Fail</h2>
+          </div>
         </div>
-      </div>
+      ) : null}
+
       <div className='row justify-content-center mt-4'>
         <div className='col justify-content-center'>
           <div className='d-flex justify-content-between'>
@@ -114,7 +110,7 @@ function FormElements({
         <button
           className='btn btn-secondary'
           type='button'
-          onClick={() => onReset()}
+          onClick={() => onResetClick()}
           disabled={mode === "IDLE" || mode == "START"}
         >
           RESET
