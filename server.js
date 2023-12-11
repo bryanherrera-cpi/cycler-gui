@@ -11,24 +11,20 @@ const port = new SerialPort({
   baudRate: 9600,
 });
 
-// const myport = new SerialPort({
-//   path: "/dev/cu.usbmodem1301",
-//   baudRate: 115200,
+//Print Available Serial Ports
+// SerialPort.list().then(function (ports) {
+//   ports.forEach(function (port) {
+//     console.log("Port: ", port);
+//   });
 // });
 
 const express = require("express");
 const { createServer } = require("node:http");
-const { join } = require("node:path");
 const { Server } = require("socket.io");
 var cors = require("cors");
 const app = express();
 
 app.use(cors());
-
-// GET method route
-// app.get("/cyclecount", (req, res) => {
-//   res.send(arduinoResponse);
-// });
 
 const server = createServer(app);
 const io = new Server(server, {

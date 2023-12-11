@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Components/Header";
-import Form from "./Components/Form";
+import Card from "./Components/Card";
 import { socket } from "./socket";
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
       <div className='container vh-100'>
         <div className='row justify-content-center vh-100'>
           <div className='col-6'>
-            <Form
+            <Card
               updateTarget={updateTarget}
               updateMode={updateMode}
               onReset={onReset}
@@ -65,7 +65,7 @@ function App() {
               socketConnection={socketConnection}
               cycleCount={cycleCount}
               cycleTarget={cycleTarget}
-            ></Form>
+            ></Card>
           </div>
         </div>
       </div>
