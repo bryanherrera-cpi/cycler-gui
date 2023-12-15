@@ -13,8 +13,15 @@ function App() {
     setSocketConnection(true);
   }
 
+  const regex = /[{\[]{1}([,:{}\[\]0-9.\-+Eaeflnr-u \n\r\t]|".*?")+[}\]]{1}/gis;
+
+  function jsonFromString(str) {
+    const match = str.match(regex);
+    return match;
+  }
+
   const onArduinoMessage = (msg) => {
-    let data = JSON.parse(msg);
+    let data = JSON.parse(jsonFromString(msg));
     console.log(data);
     setCycleCount(data.CycleCount);
     if (data.CycleCount === cycleTarget) {

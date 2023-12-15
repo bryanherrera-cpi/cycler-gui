@@ -116,7 +116,7 @@ function Form({
           className='btn btn-danger'
           type='button'
           onClick={() => onModeSelect("STOP")}
-          disabled={mode === "IDLE" || mode == "DONE"}
+          disabled={mode === "IDLE" || mode == "DONE" || mode === "STOP"}
         >
           STOP
         </button>

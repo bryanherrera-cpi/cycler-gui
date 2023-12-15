@@ -1,15 +1,11 @@
 const { SerialPort } = require("serialport");
 const { ReadlineParser } = require("@serialport/parser-readline");
 
-// const port = new SerialPort({
-//   path: "/dev/cu.usbmodem21301",
-//   baudRate: 9600,
-// });
-
-const port = new SerialPort({
-  path: "/dev/cu.usbmodem1301",
-  baudRate: 9600,
-});
+// const portPath = "/dev/cu.usbserial-FT55ZKR1";
+//const portPath = "/dev/cu.usbserial-120";
+//const portPath = "/dev/cu.usbserial-130";
+const portPath = "/dev/cu.usbserial-120";
+//const portPath = "/dev/cu.usbserial-AC009159";
 
 //Print Available Serial Ports
 // SerialPort.list().then(function (ports) {
@@ -17,6 +13,11 @@ const port = new SerialPort({
 //     console.log("Port: ", port);
 //   });
 // });
+
+const port = new SerialPort({
+  path: portPath,
+  baudRate: 9600,
+});
 
 const express = require("express");
 const { createServer } = require("node:http");
