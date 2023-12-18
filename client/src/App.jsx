@@ -7,7 +7,8 @@ function App() {
   const [cycleCount, setCycleCount] = useState(0);
   const [cycleTarget, setCycleTarget] = useState(0);
   const [mode, setMode] = useState("IDLE");
-  const [socketConnection, setSocketConnection] = useState(socket.connected);
+  // const [socketConnection, setSocketConnection] = useState(socket.connected);
+  const [socketConnection, setSocketConnection] = useState(true);
 
   function onConnect() {
     setSocketConnection(true);

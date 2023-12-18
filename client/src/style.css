@@ -11,11 +11,6 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Firefox */
-/* input[type=number] {
-  -moz-appearance: textfield;
-} */
-
   body {
     background-color: #002C3D;
     line-height: 1.6;
@@ -37,3 +32,21 @@ input::-webkit-inner-spin-button {
   .progress-bar{
     background-color: #A0A5AA;
   }
+
+  .tab-content{
+    padding: 1rem;
+  }
+
+  .nav-link.active, .tab-content{
+    background-color: #E9ECEF !important;
+  }
+
+  .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    border-color: #E9ECEF;
+  }
+
+  .nav-tabs {
+    border-color: var(--bs-secondary-bg) var(--bs-secondary-bg) var(--bs-border-color)!important;
+}
+
+
