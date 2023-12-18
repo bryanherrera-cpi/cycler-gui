@@ -4,9 +4,12 @@ import Card from "./Components/Card";
 import { socket } from "./socket";
 
 function App() {
+  const [cyclerOneMode, setCyclerOneMode] = useState("IDLE");
+  const [cyclerTwoMode, setCyclerTwoMode] = useState("IDLE");
+
   const [cycleCount, setCycleCount] = useState(0);
   const [cycleTarget, setCycleTarget] = useState(0);
-  const [mode, setMode] = useState("IDLE");
+  //const [mode, setMode] = useState("IDLE");
   // const [socketConnection, setSocketConnection] = useState(socket.connected);
   const [socketConnection, setSocketConnection] = useState(true);
 
@@ -34,14 +37,25 @@ function App() {
     setCycleTarget(target);
   };
 
-  const updateMode = (mode) => {
-    setMode(mode);
+  const updateMode = (cycler, mode) => {
+    if (cycler === "1") {
+      setCyclerOneMode(mode);
+    } else {
+      setCyclerTwoMode(mode);
+    }
   };
 
-  const onReset = () => {
-    if (mode === "STOP" || mode === "DONE") {
-      setMode("IDLE");
+  const onReset = (cycler) => {
+    if (cycler === "1") {
+      if (cyclerOneMode === "STOP" || cyclerOneMode === "DONE") {
+        setCyclerOneMode("IDLE");
+      }
+    } else {
+      if (cyclerTwoMode === "STOP" || cyclerTwoMode === "DONE") {
+        setCyclerTwoMode("IDLE");
+      }
     }
+
     setCycleCount(0);
   };
 
@@ -49,7 +63,7 @@ function App() {
     socket.on("connect", () => onConnect());
     socket.on("arduinoMessage", onArduinoMessage);
 
-    let clientMessage = `<${cycleCount}|${cycleTarget}|${mode}>`;
+    let clientMessage = `<${cycleCount}|${cycleTarget}|${cyclerOneMode}>`;
     socket.emit("clientMessage", { data: clientMessage });
     console.log("Sent Client Message to Arduino: " + clientMessage);
 
@@ -57,7 +71,7 @@ function App() {
       socket.off("connect", onConnect);
       socket.off("arduinoMessage", onArduinoMessage);
     };
-  }, [mode]);
+  }, [cyclerOneMode, cyclerTwoMode]);
 
   return (
     <div>
@@ -69,7 +83,8 @@ function App() {
               updateTarget={updateTarget}
               updateMode={updateMode}
               onReset={onReset}
-              mode={mode}
+              cyclerOneMode={cyclerOneMode}
+              cyclerTwoMode={cyclerTwoMode}
               socketConnection={socketConnection}
               cycleCount={cycleCount}
               cycleTarget={cycleTarget}

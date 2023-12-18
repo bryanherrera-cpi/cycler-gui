@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 function Form({
   updateTarget,
@@ -7,17 +7,18 @@ function Form({
   mode,
   cycleCount,
   cycleTarget,
+  cycler,
 }) {
   const onTargetChange = (e) => {
     updateTarget(e.target.value);
   };
 
   const onModeSelect = (e) => {
-    updateMode(e);
+    updateMode(cycler, e);
   };
 
-  const onResetClick = () => {
-    onReset();
+  const onResetClick = (cycler) => {
+    onReset(cycler);
   };
 
   return (
@@ -116,15 +117,15 @@ function Form({
           className='btn btn-danger'
           type='button'
           onClick={() => onModeSelect("STOP")}
-          disabled={mode === "IDLE" || mode == "DONE" || mode === "STOP"}
+          disabled={mode === "IDLE" || mode === "DONE" || mode === "STOP"}
         >
           STOP
         </button>
         <button
           className='btn btn-secondary'
           type='button'
-          onClick={() => onResetClick()}
-          disabled={mode === "IDLE" || mode == "START"}
+          onClick={() => onResetClick(cycler)}
+          disabled={mode === "IDLE" || mode === "START"}
         >
           RESET
         </button>

@@ -7,7 +7,8 @@ function Card({
   updateTarget,
   updateMode,
   onReset,
-  mode,
+  cyclerOneMode,
+  cyclerTwoMode,
   socketConnection,
   cycleCount,
   cycleTarget,
@@ -23,10 +24,11 @@ function Card({
           tabindex='0'
         >
           <Form
+            cycler='1'
             updateTarget={updateTarget}
             updateMode={updateMode}
             onReset={onReset}
-            mode={mode}
+            mode={cyclerOneMode}
             cycleCount={cycleCount}
             cycleTarget={cycleTarget}
           ></Form>
@@ -39,10 +41,11 @@ function Card({
           tabindex='0'
         >
           <Form
+            cycler='2'
             updateTarget={updateTarget}
             updateMode={updateMode}
             onReset={onReset}
-            mode={mode}
+            mode={cyclerTwoMode}
             cycleCount={cycleCount}
             cycleTarget={cycleTarget}
             tabTarget='cycle2-tab-pane'
@@ -59,7 +62,10 @@ function Card({
   return (
     <div className='card'>
       <div className='card-body'>
-        <CyclerNav mode={mode}></CyclerNav>
+        <CyclerNav
+          cyclerOneMode={cyclerOneMode}
+          cyclerTwoMode={cyclerTwoMode}
+        ></CyclerNav>
         {socketConnection ? renderForm() : renderLoading()}
       </div>
     </div>
